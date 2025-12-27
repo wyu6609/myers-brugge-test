@@ -10,14 +10,14 @@ function App() {
   const { phase } = useQuiz();
 
   return (
-    <div className="w-screen min-h-screen overflow-auto">
+    <>
       <SoundManager />
       <MuteButton />
       
       {phase === 'welcome' && <WelcomeScreen />}
       {phase === 'quiz' && <QuizScreen />}
       {phase === 'results' && <ResultsScreen />}
-    </div>
+    </>
   );
 }
 
