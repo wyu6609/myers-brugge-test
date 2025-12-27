@@ -1,11 +1,23 @@
 import { create } from "zustand";
 import { questions, personalityTypes, type PersonalityType } from "@/data/mbtiData";
 
+export interface DimensionScores {
+  E: number;
+  I: number;
+  S: number;
+  N: number;
+  T: number;
+  F: number;
+  J: number;
+  P: number;
+}
+
 interface QuizState {
   currentQuestion: number;
   answers: Record<number, 'A' | 'B'>;
   phase: 'welcome' | 'quiz' | 'results';
   result: PersonalityType | null;
+  dimensionScores: DimensionScores | null;
   
   startQuiz: () => void;
   answerQuestion: (answer: 'A' | 'B') => void;
@@ -13,6 +25,7 @@ interface QuizState {
   previousQuestion: () => void;
   calculateResult: () => void;
   resetQuiz: () => void;
+  finishQuiz: () => void;
 }
 
 export const useQuiz = create<QuizState>((set, get) => ({
@@ -20,9 +33,10 @@ export const useQuiz = create<QuizState>((set, get) => ({
   answers: {},
   phase: 'welcome',
   result: null,
+  dimensionScores: null,
 
   startQuiz: () => {
-    set({ phase: 'quiz', currentQuestion: 0, answers: {}, result: null });
+    set({ phase: 'quiz', currentQuestion: 0, answers: {}, result: null, dimensionScores: null });
   },
 
   answerQuestion: (answer: 'A' | 'B') => {
@@ -51,10 +65,14 @@ export const useQuiz = create<QuizState>((set, get) => ({
     }
   },
 
+  finishQuiz: () => {
+    get().calculateResult();
+  },
+
   calculateResult: () => {
     const { answers } = get();
     
-    const scores = {
+    const scores: DimensionScores = {
       E: 0, I: 0,
       S: 0, N: 0,
       T: 0, F: 0,
@@ -64,9 +82,9 @@ export const useQuiz = create<QuizState>((set, get) => ({
     questions.forEach((question, index) => {
       const answer = answers[index];
       if (answer === 'A') {
-        scores[question.aValue as keyof typeof scores]++;
+        scores[question.aValue as keyof DimensionScores]++;
       } else if (answer === 'B') {
-        scores[question.bValue as keyof typeof scores]++;
+        scores[question.bValue as keyof DimensionScores]++;
       }
     });
 
@@ -77,7 +95,7 @@ export const useQuiz = create<QuizState>((set, get) => ({
       (scores.J >= scores.P ? 'J' : 'P');
 
     const result = personalityTypes[type];
-    set({ result, phase: 'results' });
+    set({ result, phase: 'results', dimensionScores: scores });
   },
 
   resetQuiz: () => {
@@ -85,7 +103,8 @@ export const useQuiz = create<QuizState>((set, get) => ({
       currentQuestion: 0,
       answers: {},
       phase: 'welcome',
-      result: null
+      result: null,
+      dimensionScores: null
     });
   }
 }));

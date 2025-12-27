@@ -5,9 +5,10 @@ import { useAudio } from "@/lib/stores/useAudio";
 import { useLanguage } from "@/lib/stores/useLanguage";
 import { translations, personalityTypesZh } from "@/data/translations";
 import { useEffect, useState } from "react";
-import { RotateCcw, Briefcase, Star, Share2, Heart } from "lucide-react";
+import { RotateCcw, Briefcase, Star, Share2, Heart, BarChart3 } from "lucide-react";
 import Confetti from "react-confetti";
 import { personalityTypes } from "@/data/mbtiData";
+import { PersonalityStats } from "./PersonalityStats";
 
 const typeImages: Record<string, string> = {
   INTJ: "/images/intj_architect_personality_abstract.png",
@@ -41,7 +42,7 @@ function PawPrint({ className }: { className?: string }) {
 }
 
 export function ResultsScreen() {
-  const { result, resetQuiz } = useQuiz();
+  const { result, resetQuiz, dimensionScores } = useQuiz();
   const { playSuccess, playHit } = useAudio();
   const { language } = useLanguage();
   const t = translations[language].results;
@@ -171,6 +172,26 @@ export function ResultsScreen() {
           >
             {displayDescription}
           </motion.p>
+
+          {dimensionScores && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75 }}
+              className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-6 border border-violet-200 mb-8"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800">{t.yourStats}</h3>
+                  <p className="text-gray-500 text-sm">{t.statsDescription}</p>
+                </div>
+              </div>
+              <PersonalityStats scores={dimensionScores} />
+            </motion.div>
+          )}
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <motion.div
