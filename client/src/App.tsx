@@ -10,7 +10,7 @@ function App() {
   const { phase } = useQuiz();
 
   return (
-    <div className="w-screen h-screen overflow-hidden">
+    <div className="w-screen min-h-screen overflow-auto">
       <SoundManager />
       <MuteButton />
       

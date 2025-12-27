@@ -10,13 +10,13 @@ export function SoundManager() {
     bgMusic.volume = 0.3;
     setBackgroundMusic(bgMusic);
 
-    const hit = new Audio("/sounds/hit.mp3");
-    hit.volume = 0.5;
-    setHitSound(hit);
+    const meow = new Audio("/sounds/meow.mp3");
+    meow.volume = 0.6;
+    setHitSound(meow);
 
-    const success = new Audio("/sounds/success.mp3");
-    success.volume = 0.6;
-    setSuccessSound(success);
+    const purr = new Audio("/sounds/purr.mp3");
+    purr.volume = 0.5;
+    setSuccessSound(purr);
   }, [setBackgroundMusic, setHitSound, setSuccessSound]);
 
   return null;
