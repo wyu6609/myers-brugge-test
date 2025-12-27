@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/lib/stores/useQuiz";
 import { useAudio } from "@/lib/stores/useAudio";
-import { useEffect } from "react";
-import { RotateCcw, Briefcase, Star, Share2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { RotateCcw, Briefcase, Star, Share2, Heart } from "lucide-react";
 import Confetti from "react-confetti";
-import { useState } from "react";
+import { personalityTypes } from "@/data/mbtiData";
 
 const typeImages: Record<string, string> = {
   INTJ: "/images/intj_architect_personality_abstract.png",
@@ -201,6 +201,47 @@ export function ResultsScreen() {
               </ul>
             </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0 }}
+            className="bg-white/5 rounded-2xl p-6 border border-white/10 mb-8"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center">
+                <Heart className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Most Compatible Types</h3>
+            </div>
+            <p className="text-purple-200 text-sm mb-4">
+              These personality types complement yours well and often form strong connections
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {result.compatibleTypes.map((type, index) => {
+                const compatType = personalityTypes[type];
+                return (
+                  <motion.div
+                    key={type}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.1 + index * 0.1 }}
+                    className="bg-white/10 rounded-xl p-4 text-center hover:bg-white/15 transition-colors"
+                  >
+                    <div 
+                      className="text-2xl font-bold mb-1"
+                      style={{ color: compatType?.color || '#a855f7' }}
+                    >
+                      {type}
+                    </div>
+                    <div className="text-purple-200 text-xs">
+                      {compatType?.name || type}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

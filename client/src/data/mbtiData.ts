@@ -198,6 +198,7 @@ export interface PersonalityType {
   strengths: string[];
   careers: string[];
   color: string;
+  compatibleTypes: string[];
 }
 
 export const personalityTypes: Record<string, PersonalityType> = {
@@ -207,7 +208,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Strategic thinkers with a plan for everything. INTJs are innovative, independent, and determined. They have a natural thirst for knowledge and strive to improve everything around them. Known for their logical minds and creative solutions to complex problems.",
     strengths: ["Strategic thinking", "Independent", "Determined", "High standards", "Innovative"],
     careers: ["Scientist", "Engineer", "Professor", "Lawyer", "Project Manager"],
-    color: "#6366f1"
+    color: "#6366f1",
+    compatibleTypes: ["ENFP", "ENTP", "INFJ", "INFP"]
   },
   INTP: {
     type: "INTP",
@@ -215,7 +217,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Innovative inventors with an unquenchable thirst for knowledge. INTPs are quiet, analytical, and creative thinkers who enjoy theoretical concepts and abstract ideas. They excel at finding patterns and logical explanations.",
     strengths: ["Analytical", "Original", "Open-minded", "Curious", "Objective"],
     careers: ["Programmer", "Mathematician", "Analyst", "Researcher", "Writer"],
-    color: "#8b5cf6"
+    color: "#8b5cf6",
+    compatibleTypes: ["ENTJ", "ENFJ", "INFJ", "INTJ"]
   },
   ENTJ: {
     type: "ENTJ",
@@ -223,7 +226,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Bold, imaginative, and strong-willed leaders. ENTJs are natural-born leaders who love to organize and lead. They are decisive, efficient, and enjoy long-term planning. They have a natural talent for business and leadership.",
     strengths: ["Efficient", "Energetic", "Self-confident", "Strong-willed", "Strategic"],
     careers: ["Executive", "Entrepreneur", "Manager", "Consultant", "Politician"],
-    color: "#ec4899"
+    color: "#ec4899",
+    compatibleTypes: ["INFP", "INTP", "ENFP", "ENTP"]
   },
   ENTP: {
     type: "ENTP",
@@ -231,7 +235,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Smart and curious thinkers who cannot resist an intellectual challenge. ENTPs are quick-witted, clever, and love to argue for the sake of exploration. They are excellent at seeing all sides of an issue.",
     strengths: ["Quick-thinking", "Charismatic", "Energetic", "Original", "Excellent brainstormers"],
     careers: ["Entrepreneur", "Lawyer", "Consultant", "Engineer", "Politician"],
-    color: "#f43f5e"
+    color: "#f43f5e",
+    compatibleTypes: ["INFJ", "INTJ", "ENFJ", "ENTJ"]
   },
   INFJ: {
     type: "INFJ",
@@ -239,7 +244,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Quiet and mystical, yet very inspiring and tireless idealists. INFJs are the rarest personality type, known for their deep insights into people and complex inner lives. They are driven by a desire to help others.",
     strengths: ["Insightful", "Principled", "Passionate", "Altruistic", "Creative"],
     careers: ["Counselor", "Writer", "Psychologist", "Teacher", "Non-profit Director"],
-    color: "#14b8a6"
+    color: "#14b8a6",
+    compatibleTypes: ["ENTP", "ENFP", "INTJ", "INFP"]
   },
   INFP: {
     type: "INFP",
@@ -247,7 +253,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Poetic, kind, and altruistic people who are always eager to help a good cause. INFPs are idealistic, empathetic, and creative. They see the best in people and are guided by their core values.",
     strengths: ["Empathetic", "Generous", "Open-minded", "Creative", "Passionate"],
     careers: ["Writer", "Artist", "Counselor", "Social Worker", "Musician"],
-    color: "#10b981"
+    color: "#10b981",
+    compatibleTypes: ["ENTJ", "ENFJ", "INTJ", "INFJ"]
   },
   ENFJ: {
     type: "ENFJ",
@@ -255,7 +262,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Charismatic and inspiring leaders who are able to mesmerize their listeners. ENFJs are natural teachers and mentors, driven by a desire to help others reach their potential. They are warm, genuine, and empathetic.",
     strengths: ["Tolerant", "Reliable", "Charismatic", "Altruistic", "Natural leaders"],
     careers: ["Teacher", "HR Manager", "Counselor", "Event Coordinator", "Life Coach"],
-    color: "#22c55e"
+    color: "#22c55e",
+    compatibleTypes: ["INFP", "ISFP", "INTP", "ISTP"]
   },
   ENFP: {
     type: "ENFP",
@@ -263,7 +271,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Enthusiastic, creative, and sociable free spirits who can always find a reason to smile. ENFPs are curious, idealistic, and love exploring new ideas and possibilities. They bring energy and enthusiasm to everything they do.",
     strengths: ["Curious", "Enthusiastic", "Excellent communicators", "Festive", "Popular"],
     careers: ["Journalist", "Actor", "Consultant", "Entrepreneur", "Creative Director"],
-    color: "#84cc16"
+    color: "#84cc16",
+    compatibleTypes: ["INTJ", "INFJ", "ENTJ", "ENFJ"]
   },
   ISTJ: {
     type: "ISTJ",
@@ -271,7 +280,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Practical and fact-minded individuals whose reliability cannot be doubted. ISTJs are responsible, sincere, and take their commitments seriously. They value tradition, loyalty, and order.",
     strengths: ["Honest", "Direct", "Strong-willed", "Dutiful", "Responsible"],
     careers: ["Accountant", "Military Officer", "Judge", "Administrator", "Auditor"],
-    color: "#0ea5e9"
+    color: "#0ea5e9",
+    compatibleTypes: ["ESFP", "ESTP", "ISFJ", "ESTJ"]
   },
   ISFJ: {
     type: "ISFJ",
@@ -279,7 +289,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Very dedicated and warm protectors, always ready to defend their loved ones. ISFJs are supportive, reliable, and patient. They notice and remember details about others and use this to care for them.",
     strengths: ["Supportive", "Reliable", "Patient", "Observant", "Loyal"],
     careers: ["Nurse", "Teacher", "Social Worker", "Librarian", "Administrator"],
-    color: "#06b6d4"
+    color: "#06b6d4",
+    compatibleTypes: ["ESFP", "ESTP", "ISTJ", "ESFJ"]
   },
   ESTJ: {
     type: "ESTJ",
@@ -287,7 +298,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Excellent administrators, unsurpassed at managing things or people. ESTJs are organized, logical, and assertive. They value tradition, order, and security in their lives and communities.",
     strengths: ["Dedicated", "Strong-willed", "Direct", "Honest", "Loyal"],
     careers: ["Manager", "Judge", "Financial Officer", "Business Administrator", "School Principal"],
-    color: "#3b82f6"
+    color: "#3b82f6",
+    compatibleTypes: ["ISFP", "ISTP", "ISTJ", "ESFJ"]
   },
   ESFJ: {
     type: "ESFJ",
@@ -295,7 +307,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Extraordinarily caring, social, and popular people who are always eager to help. ESFJs are warm-hearted, popular, and conscientious. They put a lot of effort into making others feel good.",
     strengths: ["Strong sense of duty", "Loyal", "Sensitive", "Warm", "Connecting with others"],
     careers: ["Sales Representative", "Nurse", "Teacher", "Social Worker", "Event Planner"],
-    color: "#2563eb"
+    color: "#2563eb",
+    compatibleTypes: ["ISFP", "ISTP", "ISFJ", "ESTJ"]
   },
   ISTP: {
     type: "ISTP",
@@ -303,7 +316,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Bold and practical experimenters, masters of all kinds of tools. ISTPs are observant, cool-headed, and adaptable. They enjoy exploring with their hands and eyes, touching and examining the world around them.",
     strengths: ["Optimistic", "Energetic", "Creative", "Practical", "Spontaneous"],
     careers: ["Mechanic", "Engineer", "Pilot", "Forensic Scientist", "Systems Analyst"],
-    color: "#f59e0b"
+    color: "#f59e0b",
+    compatibleTypes: ["ESFJ", "ESTJ", "ISFP", "ESTP"]
   },
   ISFP: {
     type: "ISFP",
@@ -311,7 +325,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Flexible and charming artists, always ready to explore and experience something new. ISFPs are gentle, sensitive, and helpful. They live in the present moment and enjoy their surroundings with cheerful, low-key enthusiasm.",
     strengths: ["Charming", "Sensitive to others", "Imaginative", "Passionate", "Curious"],
     careers: ["Artist", "Designer", "Musician", "Chef", "Veterinarian"],
-    color: "#eab308"
+    color: "#eab308",
+    compatibleTypes: ["ENFJ", "ESFJ", "ESTJ", "ISTP"]
   },
   ESTP: {
     type: "ESTP",
@@ -319,7 +334,8 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Smart, energetic, and very perceptive people who truly enjoy living on the edge. ESTPs are energetic thrill-seekers who love taking risks. They are observant, practical, and live in the moment.",
     strengths: ["Bold", "Rational", "Direct", "Sociable", "Perceptive"],
     careers: ["Entrepreneur", "Sales", "Marketing", "Paramedic", "Police Officer"],
-    color: "#f97316"
+    color: "#f97316",
+    compatibleTypes: ["ISFJ", "ISTJ", "ESFP", "ISTP"]
   },
   ESFP: {
     type: "ESFP",
@@ -327,6 +343,7 @@ export const personalityTypes: Record<string, PersonalityType> = {
     description: "Spontaneous, energetic, and enthusiastic entertainers who light up the room. ESFPs love the spotlight and want to make others feel good. They are observant, practical, and live life to the fullest.",
     strengths: ["Bold", "Original", "Aesthetics", "Practical", "Observant"],
     careers: ["Entertainer", "Event Planner", "Sales Representative", "Tour Guide", "Flight Attendant"],
-    color: "#ef4444"
+    color: "#ef4444",
+    compatibleTypes: ["ISFJ", "ISTJ", "ESTP", "ISFP"]
   }
 };
