@@ -4,6 +4,7 @@ import { QuizScreen } from "@/components/QuizScreen";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { SoundManager } from "@/components/SoundManager";
 import { MuteButton } from "@/components/MuteButton";
+import { LanguageToggle } from "@/components/LanguageToggle";
 import "@fontsource/inter";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <>
       <SoundManager />
       <MuteButton />
+      <LanguageToggle />
       
       {phase === 'welcome' && <WelcomeScreen />}
       {phase === 'quiz' && <QuizScreen />}

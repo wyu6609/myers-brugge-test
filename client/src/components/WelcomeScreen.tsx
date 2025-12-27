@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/lib/stores/useQuiz";
 import { useAudio } from "@/lib/stores/useAudio";
+import { useLanguage } from "@/lib/stores/useLanguage";
+import { translations } from "@/data/translations";
 import { Sparkles, ArrowRight } from "lucide-react";
 
 function CatFace() {
@@ -44,6 +46,8 @@ function PawPrint({ className }: { className?: string }) {
 export function WelcomeScreen() {
   const { startQuiz } = useQuiz();
   const { playHit } = useAudio();
+  const { language } = useLanguage();
+  const t = translations[language].welcome;
 
   const handleStart = () => {
     playHit();
@@ -79,9 +83,9 @@ export function WelcomeScreen() {
             transition={{ delay: 0.3 }}
             className="text-4xl md:text-5xl font-bold text-gray-800 text-center mb-4"
           >
-            What Kind of
+            {t.title1}
             <span className="block bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-              Cat Are You?
+              {t.title2}
             </span>
           </motion.h1>
 
@@ -91,7 +95,7 @@ export function WelcomeScreen() {
             transition={{ delay: 0.4 }}
             className="text-orange-700 text-center text-lg mb-8"
           >
-            Take our purrsonality quiz to discover your feline alter ego! Answer 20 questions to find your inner cat. 🐱
+            {t.subtitle}
           </motion.p>
 
           <motion.div
@@ -102,15 +106,15 @@ export function WelcomeScreen() {
           >
             <div className="flex items-center gap-2 text-orange-600 bg-orange-100 px-4 py-2 rounded-full">
               <Sparkles className="w-5 h-5" />
-              <span>20 Questions</span>
+              <span>{t.questions}</span>
             </div>
             <div className="flex items-center gap-2 text-pink-600 bg-pink-100 px-4 py-2 rounded-full">
               <Sparkles className="w-5 h-5" />
-              <span>5 Minutes</span>
+              <span>{t.minutes}</span>
             </div>
             <div className="flex items-center gap-2 text-amber-600 bg-amber-100 px-4 py-2 rounded-full">
               <Sparkles className="w-5 h-5" />
-              <span>16 Cat Types</span>
+              <span>{t.catTypes}</span>
             </div>
           </motion.div>
 
@@ -125,7 +129,7 @@ export function WelcomeScreen() {
               size="lg"
               className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
-              Start the Quiz
+              {t.startQuiz}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>

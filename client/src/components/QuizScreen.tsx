@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useQuiz } from "@/lib/stores/useQuiz";
 import { useAudio } from "@/lib/stores/useAudio";
+import { useLanguage } from "@/lib/stores/useLanguage";
+import { translations, questionsZh } from "@/data/translations";
 import { questions } from "@/data/mbtiData";
 import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -22,9 +24,12 @@ function PawPrint({ className }: { className?: string }) {
 export function QuizScreen() {
   const { currentQuestion, answers, answerQuestion, nextQuestion, previousQuestion } = useQuiz();
   const { playHit } = useAudio();
+  const { language } = useLanguage();
+  const t = translations[language].quiz;
   const [selectedAnswer, setSelectedAnswer] = useState<'A' | 'B' | null>(null);
   
   const question = questions[currentQuestion];
+  const questionZh = questionsZh[currentQuestion];
   const progress = ((currentQuestion + 1) / questions.length) * 100;
   const currentAnswer = answers[currentQuestion] || selectedAnswer;
   const isLastQuestion = currentQuestion === questions.length - 1;
@@ -52,6 +57,8 @@ export function QuizScreen() {
     previousQuestion();
   };
 
+  const displayQuestion = language === 'zh' ? questionZh : question;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-100 to-pink-100 flex items-center justify-center p-4 relative overflow-hidden">
       <PawPrint className="absolute top-10 left-10 w-20 h-20 text-orange-400 rotate-[-20deg]" />
@@ -61,7 +68,7 @@ export function QuizScreen() {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <span className="text-orange-700 font-medium">
-              Question {currentQuestion + 1} of {questions.length}
+              {t.question} {currentQuestion + 1} {t.of} {questions.length}
             </span>
             <span className="text-orange-700 font-medium">
               {Math.round(progress)}%
@@ -82,7 +89,7 @@ export function QuizScreen() {
             <motion.h2
               className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-8"
             >
-              {question.text}
+              {displayQuestion.text}
             </motion.h2>
 
             <div className="space-y-4">
@@ -104,7 +111,7 @@ export function QuizScreen() {
                   }`}>
                     {currentAnswer === 'A' && <Check className="w-5 h-5 text-orange-500" />}
                   </div>
-                  <span className="text-lg font-medium">{question.optionA}</span>
+                  <span className="text-lg font-medium">{displayQuestion.optionA}</span>
                 </div>
               </motion.button>
 
@@ -126,7 +133,7 @@ export function QuizScreen() {
                   }`}>
                     {currentAnswer === 'B' && <Check className="w-5 h-5 text-orange-500" />}
                   </div>
-                  <span className="text-lg font-medium">{question.optionB}</span>
+                  <span className="text-lg font-medium">{displayQuestion.optionB}</span>
                 </div>
               </motion.button>
             </div>
@@ -139,7 +146,7 @@ export function QuizScreen() {
                 className="text-orange-600 hover:bg-orange-100 disabled:opacity-50"
               >
                 <ChevronLeft className="w-5 h-5 mr-1" />
-                Previous
+                {t.previous}
               </Button>
 
               <Button
@@ -149,12 +156,12 @@ export function QuizScreen() {
               >
                 {isLastQuestion ? (
                   <>
-                    See Results
+                    {t.seeResults}
                     <ChevronRight className="w-5 h-5 ml-1" />
                   </>
                 ) : (
                   <>
-                    Next
+                    {t.next}
                     <ChevronRight className="w-5 h-5 ml-1" />
                   </>
                 )}

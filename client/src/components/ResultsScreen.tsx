@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/lib/stores/useQuiz";
 import { useAudio } from "@/lib/stores/useAudio";
+import { useLanguage } from "@/lib/stores/useLanguage";
+import { translations, personalityTypesZh } from "@/data/translations";
 import { useEffect, useState } from "react";
 import { RotateCcw, Briefcase, Star, Share2, Heart } from "lucide-react";
 import Confetti from "react-confetti";
@@ -41,6 +43,8 @@ function PawPrint({ className }: { className?: string }) {
 export function ResultsScreen() {
   const { result, resetQuiz } = useQuiz();
   const { playSuccess, playHit } = useAudio();
+  const { language } = useLanguage();
+  const t = translations[language].results;
   const [showConfetti, setShowConfetti] = useState(true);
   const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 
@@ -65,6 +69,12 @@ export function ResultsScreen() {
   };
 
   if (!result) return null;
+
+  const translatedType = language === 'zh' ? personalityTypesZh[result.type] : null;
+  const displayName = translatedType?.name || result.name;
+  const displayDescription = translatedType?.description || result.description;
+  const displayStrengths = translatedType?.strengths || result.strengths;
+  const displayCareers = translatedType?.careers || result.careers;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-100 to-pink-100 py-8 px-4 pb-24 relative">
@@ -92,10 +102,10 @@ export function ResultsScreen() {
           className="text-center mb-8"
         >
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            Your Cat Purrsonality Type
+            {t.title}
           </h1>
           <p className="text-orange-600">
-            Based on your responses, here's your feline alter ego
+            {t.subtitle}
           </p>
         </motion.div>
 
@@ -120,7 +130,7 @@ export function ResultsScreen() {
               >
                 <img 
                   src={typeImages[result.type]} 
-                  alt={result.name}
+                  alt={displayName}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -139,7 +149,7 @@ export function ResultsScreen() {
                 transition={{ delay: 0.5 }}
                 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2"
               >
-                {result.name}
+                {displayName}
               </motion.h2>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -159,7 +169,7 @@ export function ResultsScreen() {
             transition={{ delay: 0.7 }}
             className="text-lg text-gray-700 leading-relaxed mb-8"
           >
-            {result.description}
+            {displayDescription}
           </motion.p>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -173,10 +183,10 @@ export function ResultsScreen() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
                   <Star className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800">Key Strengths</h3>
+                <h3 className="text-xl font-bold text-gray-800">{t.keyStrengths}</h3>
               </div>
               <ul className="space-y-2">
-                {result.strengths.map((strength, index) => (
+                {displayStrengths.map((strength, index) => (
                   <motion.li
                     key={strength}
                     initial={{ opacity: 0, x: -10 }}
@@ -201,10 +211,10 @@ export function ResultsScreen() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center">
                   <Briefcase className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800">Ideal Careers</h3>
+                <h3 className="text-xl font-bold text-gray-800">{t.idealCareers}</h3>
               </div>
               <ul className="space-y-2">
-                {result.careers.map((career, index) => (
+                {displayCareers.map((career, index) => (
                   <motion.li
                     key={career}
                     initial={{ opacity: 0, x: 10 }}
@@ -230,14 +240,15 @@ export function ResultsScreen() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800">Purrfect Matches</h3>
+              <h3 className="text-xl font-bold text-gray-800">{t.purrfectMatches}</h3>
             </div>
             <p className="text-gray-600 text-sm mb-4">
-              These cat purrsonality types complement yours well and make great companions
+              {t.matchesDescription}
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {result.compatibleTypes.map((type, index) => {
                 const compatType = personalityTypes[type];
+                const compatTypeZh = personalityTypesZh[type];
                 return (
                   <motion.div
                     key={type}
@@ -253,7 +264,7 @@ export function ResultsScreen() {
                       {type}
                     </div>
                     <div className="text-gray-600 text-xs">
-                      {compatType?.name || type}
+                      {language === 'zh' ? compatTypeZh?.name : compatType?.name || type}
                     </div>
                   </motion.div>
                 );
@@ -273,7 +284,7 @@ export function ResultsScreen() {
               className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-8 rounded-xl"
             >
               <RotateCcw className="w-5 h-5 mr-2" />
-              Take Again
+              {t.takeAgain}
             </Button>
             <Button
               size="lg"
@@ -283,14 +294,14 @@ export function ResultsScreen() {
                 playHit();
                 if (navigator.share) {
                   navigator.share({
-                    title: `I'm a ${result.type} Cat - ${result.name}!`,
-                    text: `I just discovered my cat purrsonality type. I'm a ${result.type} (${result.name})! Meow!`,
+                    title: t.shareTitle.replace('{type}', result.type).replace('{name}', displayName),
+                    text: t.shareText.replace('{type}', result.type).replace('{name}', displayName),
                   });
                 }
               }}
             >
               <Share2 className="w-5 h-5 mr-2" />
-              Share Result
+              {t.shareResult}
             </Button>
           </motion.div>
         </motion.div>
